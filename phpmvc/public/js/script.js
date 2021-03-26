@@ -1,0 +1,36 @@
+$(function () {
+    $('.tombolTambahData').on('click', function () {
+        $('#exampleModal').html('Tambah Data Mahasiswa');
+        $('.modal-footer button[type=submit]').html('Tambah Data');
+
+        $('#id').val('');
+        $('#nama').val('');
+        $('#nim').val('');
+        $('#email').val('');
+        $('#jurusan').val('');
+    });
+
+    $('.tampilModalUbah').on('click', function () {
+       $('#exampleModal').html('Ubah Data mahasiswa');
+       $('.modal-footer button[type=submit]').html('Ubah Data');
+       $('.modal-body form').attr('action', 'http://localhost/Pemrograman%20Web/phpmvc/public/mahasiswa/ubah');
+       
+       const id = $(this).data('id');
+
+       $.ajax({
+           url: 'http://localhost/Pemrograman%20Web/phpmvc/public/mahasiswa/getubah',
+           data: { id: id },
+           method: 'post',
+           datatype: 'json',
+           success: function (data) {
+            $('#nama').val(data.nama);
+            $('#nim').val(data.nim);
+            $('#email').val(data.email);
+            $('#jurusan').val(data.jurusan);
+            $('#id').val(data.id);
+           }
+       })
+    });
+
+
+})
